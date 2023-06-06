@@ -18,7 +18,7 @@ public class RunerFiles {
 	@CucumberOptions( 
 			plugin = {"pretty", "json:target/cucumber.json"},
 			features = "src/test/resources/features", 
-			tags = "@duplicarExcel",
+			tags = "@clonarExcel",
 			snippets = CucumberOptions.SnippetType.CAMELCASE,
 			glue = { "definitions" } )
 	public class TestRunner {

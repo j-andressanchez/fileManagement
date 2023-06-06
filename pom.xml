@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>files</groupId>
   <artifactId>files</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   
   
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>2.4.3</serenity.version>
+        <serenity.version>2.5.5</serenity.version>
         <serenity.maven.version>2.4.3</serenity.maven.version>
-        <serenity.cucumber.version>2.6.0</serenity.cucumber.version>
+        <serenity.cucumber.version>2.5.8</serenity.cucumber.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven-surefire.version>2.22.1</maven-surefire.version>
@@ -17,6 +17,11 @@
     </properties>     
   
     <dependencies>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-screenplay</artifactId>
+            <version>${serenity.version}</version>
+        </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
@@ -67,6 +72,12 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
