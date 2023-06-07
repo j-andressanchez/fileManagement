@@ -1,48 +1,38 @@
 package definitions;
 
-import Tasks.CloneExcelFileTask;
-import Tasks.LoadExcelTask;
-import Tasks.SaveExcelTask;
-import Tasks.ValidateFileExistsTask;
-import actors.ClonerActor;
-import io.cucumber.java.Before;
+import static net.serenitybdd.screenplay.GivenWhenThen.givenThat;
+
+import interactions.SaveExcel;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import utilities.ExcelUtil;
+import net.serenitybdd.screenplay.Actor;
+import tasks.CloneExcelFileTask;
+import tasks.LoadExcelTask;
+import tasks.ValidateFileExistsTask;
 
 public class CloneExcelDefinition {
 
-	private ClonerActor robot;
-
-	@Before
-	public void setUp() {
-		ExcelUtil excelUtil = new ExcelUtil();
-		robot = ClonerActor.named("robot", excelUtil);
-	}
+	private Actor actor = Actor.named("automation");
 
 	@Given("Se carga el archivo de excel {string}")
 	public void loadExcelFile(String oldFilePath) {
-		LoadExcelTask loadTask = new LoadExcelTask(oldFilePath, robot);
-		robot.attemptsTo(loadTask);
+		givenThat(actor).attemptsTo(LoadExcelTask.from(oldFilePath));
 	}
 
 	@When("Se clona el archivo de excel cargado")
 	public void cloneExcelFile() {
-		CloneExcelFileTask cloneTask = new CloneExcelFileTask(robot);
-		robot.attemptsTo(cloneTask);
+		givenThat(actor).attemptsTo(CloneExcelFileTask.theFile());
 	}
 
 	@When("Se guarda el nuevo archivo en {string}")
 	public void saveNewExcelFile(String newFilePath) {
-		SaveExcelTask saveTask = new SaveExcelTask(newFilePath, robot);
-		robot.attemptsTo(saveTask);
+		givenThat(actor).attemptsTo(SaveExcel.inPath(newFilePath));
 	}
 
 	@Then("El archivo de Excel debe existir en {string}")
 	public void verifyExcelFileExists(String newFilePath) {
-		ValidateFileExistsTask validateExists = ValidateFileExistsTask.withPath(newFilePath, robot);
-		robot.attemptsTo(validateExists);
+		givenThat(actor).attemptsTo(ValidateFileExistsTask.onPath(newFilePath));
 	}
 
 }

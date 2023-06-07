@@ -1,21 +1,19 @@
-package Tasks;
+package tasks;
 
-import actors.ClonerActor;
+import interactions.SaveExcel;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 
 public class SaveExcelTask implements Task {
 
 	private String newPath;
-	private ClonerActor clonerActor;
 
-	public SaveExcelTask(String newPath, ClonerActor clonerActor) {
+	public SaveExcelTask(String newPath) {
 		this.newPath = newPath;
-		this.clonerActor = clonerActor;
 	}
 
 	@Override
 	public <T extends Actor> void performAs(T actor) {
-		clonerActor.saveWorkbook(newPath);
+		actor.attemptsTo(SaveExcel.inPath(newPath));
 	}
 }

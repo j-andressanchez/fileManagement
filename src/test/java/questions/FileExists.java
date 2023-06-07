@@ -13,7 +13,7 @@ public class FileExists implements Question<Boolean> {
         this.filePath = filePath;
     }
 
-	public static FileExists withPath(String filePath) {
+	public static FileExists inPath(String filePath) {
 		return new FileExists(filePath);
 	}
 

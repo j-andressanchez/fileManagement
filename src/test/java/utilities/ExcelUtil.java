@@ -15,22 +15,30 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
 
-	public Workbook loadExcel(String oldExcelPath) {
+	private static Workbook oldWorkbook = new XSSFWorkbook();
+	private static Workbook newWorkbook = new XSSFWorkbook();
+
+	public static Workbook getOldWorkbook() {
+		return oldWorkbook;
+	}
+
+	public static Workbook getNewWorkbook() {
+		return newWorkbook;
+	}
+
+	public static void loadExcel(String oldExcelPath) {
 		try {
 	        File file = new File(oldExcelPath);
 			FileInputStream input = new FileInputStream(file);
-			Workbook oldWorkbook = WorkbookFactory.create(input);
+			oldWorkbook = WorkbookFactory.create(input);
 			input.close();
-			return oldWorkbook;
 		} catch (Exception e) {
 			ProjectExceptions.validateException(e.toString());
 	    }
-		return null;
 	}
 
-	public Workbook cloneExcel(Workbook oldWorkbook) {
+	public static void cloneExcel() {
 		try {
-			Workbook newWorkbook = new XSSFWorkbook();
 			for (int i = 0; i < oldWorkbook.getNumberOfSheets(); i++) {
 				XSSFSheet sourceSheet = (XSSFSheet) oldWorkbook.getSheetAt(i);
 				XSSFSheet newSheet = (XSSFSheet) newWorkbook.createSheet(sourceSheet.getSheetName());
@@ -46,11 +54,9 @@ public class ExcelUtil {
 					}
 				}
 			}
-			return newWorkbook;
 		} catch (Exception e) {
 			ProjectExceptions.validateException(e.toString());
 		}
-		return null;
 	}
 
 	private static void cloneCell(XSSFCell oldCell, XSSFCell newCell, Workbook newWorkbook, XSSFSheet sourceSheet, XSSFSheet newSheet) {
@@ -66,7 +72,7 @@ public class ExcelUtil {
 		newSheet.setColumnWidth(columnIndex, columnWidth);
 	}
 
-	public void saveExcel(Workbook newWorkbook, String newExcelFilePath) {
+	public static void saveExcel(String newExcelFilePath) {
 		try (FileOutputStream output = new FileOutputStream(newExcelFilePath)) {
 			newWorkbook.write(output);
 		} catch (Exception e) {

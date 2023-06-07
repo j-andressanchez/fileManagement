@@ -1,4 +1,4 @@
-package Runner;
+package runner;
 
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
